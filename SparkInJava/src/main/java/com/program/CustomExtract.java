@@ -7,6 +7,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.api.java.UDF1;
 import org.apache.spark.sql.types.DataTypes;
 
 public class CustomExtract {
@@ -32,12 +33,27 @@ public class CustomExtract {
 		
 		SQLContext sqlContext = spark.sqlContext();
 		
+		/*sqlContext.udf().register("udfUppercase",
+				  (String string) -> string.toUpperCase(), DataTypes.StringType);*/
+		
 		sqlContext.udf().register("udfUppercase",
-				  (String string) -> string.toUpperCase(), DataTypes.StringType);
+				new UDF1 < String, String > () {
+			 @Override 
+			 public String call(String input) {
+				 return convertToUpperCase(input);
+			 }}, DataTypes.StringType);
 
 		Dataset<Row> modifiedDs = outDs3.select(callUDF("udfUppercase", col("title")));
 		modifiedDs.show();
 		modifiedDs.printSchema();
 		
+	}
+	
+	public static String convertToUpperCase(String input) {
+		String retStr = "";
+		if(null != input && input != "") {
+			retStr = input.toUpperCase();
+		}
+		return retStr;
 	}
 }
