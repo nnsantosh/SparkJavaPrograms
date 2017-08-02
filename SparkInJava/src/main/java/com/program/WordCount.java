@@ -26,8 +26,7 @@ public class WordCount {
 		//List<String> jsonData = Arrays.asList(
 		        //"{\"name\":\"Yin\",\"address\":{\"city\":\"Columbus\",\"state\":\"Ohio\"}}");
 		
-		String jsonDataStr = 
-		        "{\"name\":\"Yin\",\"address\":{\"city\":\"Columbus\",\"state\":\"Ohio\"}}";
+
 	
 		
 		 /*SparkSession spark = SparkSession.builder().appName("Build a DataFrame from Scratch").master("local[2]")
