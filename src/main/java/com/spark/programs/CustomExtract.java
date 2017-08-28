@@ -1,4 +1,4 @@
-package com.program;
+package com.spark.programs;
 
 import static org.apache.spark.sql.functions.callUDF;
 import static org.apache.spark.sql.functions.col;
@@ -38,7 +38,6 @@ public class CustomExtract {
 		
 		sqlContext.udf().register("udfUppercase",
 				new UDF1 < String, String > () {
-			 @Override 
 			 public String call(String input) {
 				 return convertToUpperCase(input);
 			 }}, DataTypes.StringType);
